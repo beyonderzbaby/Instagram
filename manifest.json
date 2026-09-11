@@ -1,16 +1,15 @@
 {
-  "name": "Instagram",
-  "short_name": "Instagram",
-  "start_url": "index.html",
+  "name": "Instagram Analytics Dashboard",
+  "short_name": "Analytics",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#ffffff",
+  "theme_color": "#000000",
   "icons": [
     {
       "src": "icon.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
   ]
 }
