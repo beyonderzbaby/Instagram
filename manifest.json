@@ -1,14 +1,14 @@
 {
-  "name": "Instagram Analytics Dashboard",
-  "short_name": "Analytics",
-  "start_url": "./",
+  "name": "My Fake Instagram",
+  "short_name": "InstaSim",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "theme_color": "#fafafa",
   "icons": [
     {
-      "src": "icon.png",
-      "sizes": "512x512",
+      "src": "https://via.placeholder.com/192/000000/FFFFFF",
+      "sizes": "192x192",
       "type": "image/png"
     }
   ]
