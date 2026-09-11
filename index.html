@@ -2,83 +2,341 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-  <meta name="theme-color"
-        content="#ffffff">
-
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <meta name="theme-color" content="#ffffff">
   <title>InSight</title>
-
-  <link rel="manifest"
-        href="manifest.json">
-
-  <link rel="stylesheet"
-        href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="app">
+<!-- DESKTOP SIDEBAR -->
+<aside class="sidebar">
 
-  <!-- DESKTOP SIDEBAR -->
+  <div class="brand">InSight</div>
 
-  <aside class="sidebar">
+  <button onclick="showPage('home')" class="nav-item active">
+    <span class="icon">⌂</span>
+    <span>Home</span>
+  </button>
 
-    <div class="brand">
-      InSight
+  <button onclick="showPage('search')" class="nav-item">
+    <span class="icon">⌕</span>
+    <span>Search</span>
+  </button>
+
+  <button onclick="showPage('explore')" class="nav-item">
+    <span class="icon">⊞</span>
+    <span>Explore</span>
+  </button>
+
+  <button onclick="showPage('reels')" class="nav-item">
+    <span class="icon">▶</span>
+    <span>Reels</span>
+  </button>
+
+  <button onclick="showPage('profile')" class="nav-item">
+    <span class="icon">◯</span>
+    <span>Profile</span>
+  </button>
+
+  <div class="sidebar-bottom">
+    <button class="nav-item" onclick="alert('More options')">
+      <span class="icon">☰</span>
+      <span>More</span>
+    </button>
+  </div>
+
+</aside>
+
+
+<!-- MOBILE TOP BAR -->
+<header class="mobile-top">
+  <div class="mobile-logo">InSight</div>
+  <div class="top-actions">
+    <button onclick="showPage('search')">⌕</button>
+    <button>♡</button>
+    <button>✉</button>
+  </div>
+</header>
+
+
+<main class="main">
+
+<!-- HOME -->
+<section id="homePage" class="page active">
+
+  <div class="stories">
+
+    <div class="story">
+      <div class="story-ring own">
+        <img src="https://i.pravatar.cc/100?img=12">
+      </div>
+      <span>Your story</span>
     </div>
 
-    <nav>
+    <div class="story">
+      <div class="story-ring">
+        <img src="https://i.pravatar.cc/100?img=5">
+      </div>
+      <span>alex</span>
+    </div>
 
-      <button onclick="showPage('home')">
-        🏠 <span>Home</span>
+    <div class="story">
+      <div class="story-ring">
+        <img src="https://i.pravatar.cc/100?img=8">
+      </div>
+      <span>jordan</span>
+    </div>
+
+    <div class="story">
+      <div class="story-ring">
+        <img src="https://i.pravatar.cc/100?img=11">
+      </div>
+      <span>mia</span>
+    </div>
+
+    <div class="story">
+      <div class="story-ring">
+        <img src="https://i.pravatar.cc/100?img=15">
+      </div>
+      <span>sam</span>
+    </div>
+
+    <div class="story">
+      <div class="story-ring">
+        <img src="https://i.pravatar.cc/100?img=20">
+      </div>
+      <span>luna</span>
+    </div>
+
+  </div>
+
+  <div id="homePosts" class="feed"></div>
+
+</section>
+
+
+<!-- SEARCH -->
+<section id="searchPage" class="page">
+
+  <div class="search-page">
+
+    <div class="search-box">
+      <span>⌕</span>
+      <input
+        id="usernameInput"
+        type="text"
+        placeholder="Search"
+        autocomplete="off"
+        onkeydown="if(event.key==='Enter') searchUser()"
+      >
+    </div>
+
+    <div id="searchResult"></div>
+
+  </div>
+
+</section>
+
+
+<!-- EXPLORE -->
+<section id="explorePage" class="page">
+
+  <div class="explore-grid" id="exploreGrid"></div>
+
+</section>
+
+
+<!-- REELS -->
+<section id="reelsPage" class="page">
+
+  <div class="reels-container" id="reelsContainer"></div>
+
+</section>
+
+
+<!-- PROFILE -->
+<section id="profilePage" class="page">
+
+  <div class="profile">
+
+    <div class="profile-top">
+
+      <img
+        id="profileAvatar"
+        class="profile-avatar"
+        src="https://i.pravatar.cc/200?img=12"
+      >
+
+      <div class="profile-details">
+
+        <div class="profile-title">
+          <h2 id="profileUsername">@creator_demo</h2>
+
+          <button class="profile-button">
+            Edit profile
+          </button>
+
+          <button class="settings-button">⚙</button>
+        </div>
+
+        <div class="profile-stats">
+
+          <span>
+            <strong id="postCount">6</strong>
+            posts
+          </span>
+
+          <span>
+            <strong>12.4K</strong>
+            followers
+          </span>
+
+          <span>
+            <strong>540</strong>
+            following
+          </span>
+
+        </div>
+
+        <div class="bio">
+          <strong>Creator</strong>
+          <br>
+          Creating content & checking analytics.
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="profile-tabs">
+
+      <button class="profile-tab active">▦</button>
+      <button class="profile-tab">▶</button>
+      <button class="profile-tab">♙</button>
+
+    </div>
+
+    <div id="profilePosts" class="post-grid"></div>
+
+  </div>
+
+</section>
+
+
+<!-- INSIGHTS -->
+<section id="insightsPage" class="page">
+
+  <div class="insights">
+
+    <div class="insights-top">
+      <button onclick="showPage('profile')" class="back">
+        ←
       </button>
 
-      <button onclick="showPage('search')">
-        🔍 <span>Search</span>
+      <strong>Insights</strong>
+
+      <button onclick="editAll()" class="edit-all">
+        Edit
       </button>
+    </div>
 
-      <button onclick="showPage('reels')">
-        ▶️ <span>Reels</span>
-      </button>
+    <div class="insight-post">
 
-      <button onclick="showPage('profile')">
-        👤 <span>Profile</span>
-      </button>
+      <img id="insightPostImage">
 
-    </nav>
+      <div>
+        <strong id="insightPostName">
+          creator_demo
+        </strong>
 
-  </aside>
+        <p>Post performance</p>
+      </div>
 
-
-  <!-- MAIN -->
-
-  <main class="main">
+    </div>
 
 
-    <!-- MOBILE TOP BAR -->
+    <div class="section-title">
+      Overview
+    </div>
 
-    <header class="mobile-header">
+    <div class="metrics">
 
-      <strong>InSight</strong>
+      <div class="metric">
+        <span>Views</span>
+        <strong id="views">0</strong>
+        <button onclick="editMetric('views')">Edit</button>
+      </div>
 
-      <button onclick="showPage('search')">
-        🔍
-      </button>
+      <div class="metric">
+        <span>Reach</span>
+        <strong id="reach">0</strong>
+        <button onclick="editMetric('reach')">Edit</button>
+      </div>
 
-    </header>
+      <div class="metric">
+        <span>Likes</span>
+        <strong id="likes">0</strong>
+        <button onclick="editMetric('likes')">Edit</button>
+      </div>
+
+      <div class="metric">
+        <span>Comments</span>
+        <strong id="comments">0</strong>
+        <button onclick="editMetric('comments')">Edit</button>
+      </div>
+
+      <div class="metric">
+        <span>Shares</span>
+        <strong id="shares">0</strong>
+        <button onclick="editMetric('shares')">Edit</button>
+      </div>
+
+      <div class="metric">
+        <span>Saves</span>
+        <strong id="saves">0</strong>
+        <button onclick="editMetric('saves')">Edit</button>
+      </div>
+
+    </div>
 
 
-    <!-- HOME -->
+    <div class="chart-card">
 
-    <section
-      id="homePage"
-      class="page active"
-    >
+      <div class="chart-header">
+        <div>
+          <strong>Views</strong>
+          <p>Performance over time</p>
+        </div>
 
-      <div class="stories">
+        <select id="chartPeriod" onchange="renderChart()">
+          <option>7 days</option>
+          <option>14 days</option>
+          <option>30 days</option>
+        </select>
+      </div>
 
-        <div class="story">
-          <div class="story
+      <canvas id="analyticsChart"></canvas>
+
+    </div>
+
+
+    <div class="audience-card">
+
+      <div class="section-title">
+        Top locations
+      </div>
+
+      <div class="country">
+        <span>India</span>
+        <strong>42%</strong>
+      </div>
+
+      <div class="country">
+        <span>United States</span>
+        <strong>24%</strong>
+      </div>
+
+      <div class="
