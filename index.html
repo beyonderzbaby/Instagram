@@ -1,342 +1,471 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-  <meta name="theme-color" content="#ffffff">
-  <title>InSight</title>
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css">
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <title>Instagram Clone</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <style>
+        :root {
+            --bg-color: #fafafa;
+            --white: #ffffff;
+            --border: #dbdbdb;
+            --text-main: #262626;
+            --text-sec: #8e8e8e;
+            --blue: #0095f6;
+        }
 
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 470px;
+            background: var(--white);
+            min-height: 100vh;
+            border-left: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: var(--white);
+            z-index: 10;
+        }
+
+        .username-title {
+            font-weight: 700;
+            font-size: 20px;
+            cursor: text;
+        }
+
+        .header-icons i {
+            font-size: 24px;
+            margin-left: 15px;
+            cursor: pointer;
+        }
+
+        .profile-header {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-pic-container {
+            flex: 0 0 80px;
+        }
+
+        .profile-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--border);
+            padding: 2px;
+            cursor: pointer;
+        }
+
+        .profile-info {
+            flex: 1;
+            padding-left: 20px;
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            cursor: text;
+        }
+
+        .stat-num {
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-main);
+        }
+
+        .bio {
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .bio-name {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 2px;
+            cursor: text;
+        }
+
+        .bio-text {
+            white-space: pre-wrap;
+            cursor: text;
+        }
+
+        .actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn {
+            flex: 1;
+            background: #efefef;
+            border: none;
+            padding: 7px 0;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn.primary {
+            background: var(--blue);
+            color: white;
+        }
+
+        .insights-btn {
+            flex: 0.5;
+            background: #efefef;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .analytics-view {
+            display: none;
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .analytics-view.active {
+            display: block;
+        }
+
+        .an-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 13px;
+            color: var(--text-sec);
+            cursor: text;
+        }
+        
+        .an-num {
+            color: var(--text-main);
+            font-weight: bold;
+        }
+
+        .highlights {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            overflow-x: auto;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .highlight-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            padding: 2px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .highlight-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .highlight-label {
+            font-size: 12px;
+            margin-top: 5px;
+            max-width: 60px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .tabs {
+            display: flex;
+            border-top: 1px solid var(--border);
+            background: var(--white);
+        }
+
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px 0;
+            color: var(--text-sec);
+            cursor: pointer;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .tab.active {
+            color: var(--text-main);
+            border-top: 1px solid var(--text-main);
+            margin-top: -1px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3px;
+            padding: 3px;
+        }
+
+        .grid-item {
+            position: relative;
+            aspect-ratio: 1/1;
+            background: #eee;
+            overflow: hidden;
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            opacity: 0;
+            transition: 0.2s;
+        }
+
+        .grid-item:hover .grid-overlay {
+            opacity: 1;
+        }
+
+        [contenteditable="true"] {
+            outline: 1px dashed var(--blue);
+            padding: 2px;
+            border-radius: 3px;
+            background: rgba(0, 149, 246, 0.05);
+        }
+
+        .edit-hint {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #333;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            pointer-events: none;
+            opacity: 0.8;
+            z-index: 100;
+        }
+    </style>
+</head>
 <body>
 
-<!-- DESKTOP SIDEBAR -->
-<aside class="sidebar">
-
-  <div class="brand">InSight</div>
-
-  <button onclick="showPage('home')" class="nav-item active">
-    <span class="icon">⌂</span>
-    <span>Home</span>
-  </button>
-
-  <button onclick="showPage('search')" class="nav-item">
-    <span class="icon">⌕</span>
-    <span>Search</span>
-  </button>
-
-  <button onclick="showPage('explore')" class="nav-item">
-    <span class="icon">⊞</span>
-    <span>Explore</span>
-  </button>
-
-  <button onclick="showPage('reels')" class="nav-item">
-    <span class="icon">▶</span>
-    <span>Reels</span>
-  </button>
-
-  <button onclick="showPage('profile')" class="nav-item">
-    <span class="icon">◯</span>
-    <span>Profile</span>
-  </button>
-
-  <div class="sidebar-bottom">
-    <button class="nav-item" onclick="alert('More options')">
-      <span class="icon">☰</span>
-      <span>More</span>
-    </button>
-  </div>
-
-</aside>
-
-
-<!-- MOBILE TOP BAR -->
-<header class="mobile-top">
-  <div class="mobile-logo">InSight</div>
-  <div class="top-actions">
-    <button onclick="showPage('search')">⌕</button>
-    <button>♡</button>
-    <button>✉</button>
-  </div>
-</header>
-
-
-<main class="main">
-
-<!-- HOME -->
-<section id="homePage" class="page active">
-
-  <div class="stories">
-
-    <div class="story">
-      <div class="story-ring own">
-        <img src="https://i.pravatar.cc/100?img=12">
-      </div>
-      <span>Your story</span>
-    </div>
-
-    <div class="story">
-      <div class="story-ring">
-        <img src="https://i.pravatar.cc/100?img=5">
-      </div>
-      <span>alex</span>
-    </div>
-
-    <div class="story">
-      <div class="story-ring">
-        <img src="https://i.pravatar.cc/100?img=8">
-      </div>
-      <span>jordan</span>
-    </div>
-
-    <div class="story">
-      <div class="story-ring">
-        <img src="https://i.pravatar.cc/100?img=11">
-      </div>
-      <span>mia</span>
-    </div>
-
-    <div class="story">
-      <div class="story-ring">
-        <img src="https://i.pravatar.cc/100?img=15">
-      </div>
-      <span>sam</span>
-    </div>
-
-    <div class="story">
-      <div class="story-ring">
-        <img src="https://i.pravatar.cc/100?img=20">
-      </div>
-      <span>luna</span>
-    </div>
-
-  </div>
-
-  <div id="homePosts" class="feed"></div>
-
-</section>
-
-
-<!-- SEARCH -->
-<section id="searchPage" class="page">
-
-  <div class="search-page">
-
-    <div class="search-box">
-      <span>⌕</span>
-      <input
-        id="usernameInput"
-        type="text"
-        placeholder="Search"
-        autocomplete="off"
-        onkeydown="if(event.key==='Enter') searchUser()"
-      >
-    </div>
-
-    <div id="searchResult"></div>
-
-  </div>
-
-</section>
-
-
-<!-- EXPLORE -->
-<section id="explorePage" class="page">
-
-  <div class="explore-grid" id="exploreGrid"></div>
-
-</section>
-
-
-<!-- REELS -->
-<section id="reelsPage" class="page">
-
-  <div class="reels-container" id="reelsContainer"></div>
-
-</section>
-
-
-<!-- PROFILE -->
-<section id="profilePage" class="page">
-
-  <div class="profile">
-
-    <div class="profile-top">
-
-      <img
-        id="profileAvatar"
-        class="profile-avatar"
-        src="https://i.pravatar.cc/200?img=12"
-      >
-
-      <div class="profile-details">
-
-        <div class="profile-title">
-          <h2 id="profileUsername">@creator_demo</h2>
-
-          <button class="profile-button">
-            Edit profile
-          </button>
-
-          <button class="settings-button">⚙</button>
+<div class="app-container">
+    <div class="header">
+        <div class="username-title" id="display-username" onclick="toggleEdit(this)">username</div>
+        <div class="header-icons">
+            <i class="fas fa-plus-square"></i>
+            <i class="fas fa-plus-square" style="transform: rotate(45deg); margin-left: 5px;"></i>
+            <i class="fas fa-bars"></i>
         </div>
+    </div>
 
-        <div class="profile-stats">
-
-          <span>
-            <strong id="postCount">6</strong>
-            posts
-          </span>
-
-          <span>
-            <strong>12.4K</strong>
-            followers
-          </span>
-
-          <span>
-            <strong>540</strong>
-            following
-          </span>
-
+    <div class="profile-header">
+        <div class="profile-pic-container">
+            <img src="https://via.placeholder.com/150" id="display-profile-pic" class="profile-pic" onclick="changeImage(this)">
         </div>
-
-        <div class="bio">
-          <strong>Creator</strong>
-          <br>
-          Creating content & checking analytics.
+        <div class="profile-info">
+            <div class="stats-row">
+                <div class="stat-item" onclick="toggleEdit(this)">
+                    <span class="stat-num">12</span>
+                    <span class="stat-label">posts</span>
+                </div>
+                <div class="stat-item" onclick="toggleEdit(this)">
+                    <span class="stat-num">1.2k</span>
+                    <span class="stat-label">followers</span>
+                </div>
+                <div class="stat-item" onclick="toggleEdit(this)">
+                    <span class="stat-num">245</span>
+                    <span class="stat-label">following</span>
+                </div>
+            </div>
         </div>
-
-      </div>
-
     </div>
 
-    <div class="profile-tabs">
-
-      <button class="profile-tab active">▦</button>
-      <button class="profile-tab">▶</button>
-      <button class="profile-tab">♙</button>
-
-    </div>
-
-    <div id="profilePosts" class="post-grid"></div>
-
-  </div>
-
-</section>
-
-
-<!-- INSIGHTS -->
-<section id="insightsPage" class="page">
-
-  <div class="insights">
-
-    <div class="insights-top">
-      <button onclick="showPage('profile')" class="back">
-        ←
-      </button>
-
-      <strong>Insights</strong>
-
-      <button onclick="editAll()" class="edit-all">
-        Edit
-      </button>
-    </div>
-
-    <div class="insight-post">
-
-      <img id="insightPostImage">
-
-      <div>
-        <strong id="insightPostName">
-          creator_demo
-        </strong>
-
-        <p>Post performance</p>
-      </div>
-
-    </div>
-
-
-    <div class="section-title">
-      Overview
-    </div>
-
-    <div class="metrics">
-
-      <div class="metric">
-        <span>Views</span>
-        <strong id="views">0</strong>
-        <button onclick="editMetric('views')">Edit</button>
-      </div>
-
-      <div class="metric">
-        <span>Reach</span>
-        <strong id="reach">0</strong>
-        <button onclick="editMetric('reach')">Edit</button>
-      </div>
-
-      <div class="metric">
-        <span>Likes</span>
-        <strong id="likes">0</strong>
-        <button onclick="editMetric('likes')">Edit</button>
-      </div>
-
-      <div class="metric">
-        <span>Comments</span>
-        <strong id="comments">0</strong>
-        <button onclick="editMetric('comments')">Edit</button>
-      </div>
-
-      <div class="metric">
-        <span>Shares</span>
-        <strong id="shares">0</strong>
-        <button onclick="editMetric('shares')">Edit</button>
-      </div>
-
-      <div class="metric">
-        <span>Saves</span>
-        <strong id="saves">0</strong>
-        <button onclick="editMetric('saves')">Edit</button>
-      </div>
-
-    </div>
-
-
-    <div class="chart-card">
-
-      <div class="chart-header">
-        <div>
-          <strong>Views</strong>
-          <p>Performance over time</p>
+    <div class="bio">
+        <div class="bio-name" onclick="toggleEdit(this)" id="display-bio-name">Full Name</div>
+        <div class="bio-text" onclick="toggleEdit(this)" id="display-bio-text">
+            ✨ Living my best life
+            📍 New York City
+            👇 Check out my link
         </div>
-
-        <select id="chartPeriod" onchange="renderChart()">
-          <option>7 days</option>
-          <option>14 days</option>
-          <option>30 days</option>
-        </select>
-      </div>
-
-      <canvas id="analyticsChart"></canvas>
-
     </div>
 
+    <div class="actions">
+        <button class="btn primary" onclick="alert('Edit profile clicked')">Edit Profile</button>
+        <button class="btn">Share Profile</button>
+        <button class="insights-btn" onclick="toggleAnalytics()"><i class="fas fa-chart-bar"></i></button>
+    </div>
 
-    <div class="audience-card">
+    <div class="analytics-view" id="analytics-panel">
+        <h3>Account Insights</h3>
+        <div class="an-row">
+            <span>Profile Visits</span>
+            <span class="an-num">1,240</span>
+        </div>
+        <div class="an-row">
+            <span>Posts Seen</span>
+            <span class="an-num">5,600</span>
+        </div>
+        <div class="an-row">
+            <span>Follower Growth</span>
+            <span class="an-num" style="color:var(--blue)">+124 this week</span>
+        </div>
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
+        <div class="an-row" onclick="toggleEdit(this)">
+            <span>Reach</span>
+            <span class="an-num">8,900</span>
+        </div>
+    </div>
 
-      <div class="section-title">
-        Top locations
-      </div>
+    <div class="highlights">
+        <div class="highlight-circle">
+            <img src="https://via.placeholder.com/100/000000/FFFFFF" class="highlight-img">
+            <span class="highlight-label">Travel</span>
+        </div>
+        <div class="highlight-circle">
+            <img src="https://via.placeholder.com/100/FF0000/FFFFFF" class="highlight-img">
+            <span class="highlight-label">Food</span>
+        </div>
+        <div class="highlight-circle">
+            <img src="https://via.placeholder.com/100/00FF00/FFFFFF" class="highlight-img">
+            <span class="highlight-label">Friends</span>
+        </div>
+    </div>
 
-      <div class="country">
-        <span>India</span>
-        <strong>42%</strong>
-      </div>
+    <div class="tabs">
+        <div class="tab active"><i class="fas fa-th"></i></div>
+        <div class="tab"><i class="fas fa-play-circle"></i></div>
+        <div class="tab"><i class="fas fa-user-tag"></i></div>
+    </div>
 
-      <div class="country">
-        <span>United States</span>
-        <strong>24%</strong>
-      </div>
+    <div class="grid">
+        <div class="grid-item">
+            <img src="https://via.placeholder.com/300/CCCCCC/999999">
+            <div class="grid-overlay"><i class="fas fa-heart"></i> 245</div>
+        </div>
+        <div class="grid-item">
+            <img src="https://via.placeholder.com/300/DDDDDD/999999">
+            <div class="grid-overlay"><i class="fas fa-heart"></i> 1.2k</div>
+        </div>
+        <div class="grid-item">
+            <img src="https://via.placeholder.com/300/EEEEEE/999999">
+            <div class="grid-overlay"><i class="fas fa-heart"></i> 89</div>
+        </div>
+        <div class="grid-item">
+            <img src="https://via.placeholder.com/300/CCCCCC/999999">
+            <div class="grid-overlay"><i class="fas fa-heart"></i> 560</div>
+        </div>
+        <div class="grid-item">
+            <img src="https://via.placeholder.com/300/DDDDDD/999999">
+            <div class="grid-overlay"><i class="fas fa-heart"></i> 332</div>
+        </div>
+        <div class="grid-item">
+            <img src="https://via.placeholder.com/300/EEEEEE/999999">
+            <div class="grid-overlay"><i class="fas fa-heart"></i> 1.5k</div>
+        </div>
+    </div>
+    
+    <div style="text-align: center; padding: 20px; color: #888; font-size: 12px;">
+        <i class="fas fa-check-circle" style="color: #0095f6;"></i> Simulated Environment
+    </div>
+</div>
 
-      <div class="
+<div class="edit-hint" id="edit-hint">Click text to edit • Click chart to see insights</div>
+
+<script>
+    function toggleEdit(element) {
+        const isEditable = element.getAttribute('contenteditable') === "true";
+        if (isEditable) {
+            element.setAttribute('contenteditable', "false");
+        } else {
+            element.setAttribute('contenteditable', "true");
+            element.focus();
+        }
+    }
+
+    function toggleAnalytics() {
+        const panel = document.getElementById('analytics-panel');
+        panel.classList.toggle('active');
+    }
+
+    function changeImage(imgElement) {
+        const newSrc = prompt("Enter image URL for profile picture:", "https://via.placeholder.com/150");
+        if (newSrc) {
+            imgElement.src = newSrc;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedUser = localStorage.getItem('ig_clone_username');
+        if (savedUser) {
+            document.getElementById('display-username').innerText = savedUser;
+        }
+    });
+
+    document.querySelectorAll('[contenteditable]').forEach(el => {
+        el.addEventListener('blur', () => {
+            localStorage.setItem('ig_clone_username', document.getElementById('display-username').innerText);
+        });
+    });
+
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+</script>
+
+</body>
+</html>
